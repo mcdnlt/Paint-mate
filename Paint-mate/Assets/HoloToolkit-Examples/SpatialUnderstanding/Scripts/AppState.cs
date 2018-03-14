@@ -296,6 +296,37 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
             {
                 SpatialUnderstanding.Instance.RequestFinishScan();
             }
+
+
+			// Paint-mate : If scan is done, press to place anchors for subtraction
+			/*if ((SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done)
+				// AND LESS THAN TWO ANCHOR POINTS
+			) {
+				// Set anchor
+				// Raycast, to get point
+				// Create GameObject at point
+				var headPosition = Camera.main.transform.position;
+				var gazeDirection = Camera.main.transform.forward;
+
+				RaycastHit hitInfo;
+
+				Debug.Log ("Raycast Attemp");
+
+				if( Physics.Raycast(headPosition, gazeDirection, out hitInfo) ){
+					//MeshRenderer.enabled = true;
+					Debug.Log("Raycast success");
+
+					Vector3 spawnPosition = hitInfo.point;
+
+					GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+					cube.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+					cube.transform.position = spawnPosition;
+
+				}
+
+				//If there's two
+			}*/
+
         }
     }
 }

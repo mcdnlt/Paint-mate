@@ -83,8 +83,10 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
                 // Make sure our solver is initialized
                 LevelSolver.Instance.InitializeSolver();
 
-                // Setup the menu
-                StartCoroutine(SetupMenu());
+                // Setup the menu StartCoroutine(SetupMenu());
+				// Run Wall measuring
+				SpaceVisualizer.Instance.Query_Topology_MeasureLargestWall();
+				timeLastQuery = DateTime.MinValue;
             }
         }
 

@@ -116,7 +116,8 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
             // Output
             HandleResults_Topology("Find Large Positions On Walls", locationCount, new Vector3(minWidthOfWallSpace, minHeightOfWallSpace, 0.025f), Color.yellow);
         }
-
+			
+		// Display and measure largest wall
         public void Query_Topology_FindLargeWall()
         {
             ClearGeometry();
@@ -145,10 +146,9 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
                     resultsTopology[0].position,
                     Quaternion.LookRotation(resultsTopology[0].normal, Vector3.up),
                     Color.magenta,
-                    new Vector3(resultsTopology[0].width, resultsTopology[0].length, 0.05f) * 0.5f)
+					new Vector3(resultsTopology[0].width, resultsTopology[0].length, 0.05f) * 0.5f)
             );
-            //AppState.Instance.SpaceQueryDescription = "Find Largest Wall (1)";
-			AppState.Instance.SpaceQueryDescription = "Width(" + resultsTopology[0].width + ") x Height (" + resultsTopology[0].length + " Area: "; 
+            AppState.Instance.SpaceQueryDescription = "Find Largest Wall (1)";
 		}
 
         public void Query_Topology_FindPositionsOnFloor()
@@ -269,6 +269,72 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
             // Output
             HandleResults_Shape("Find Shape Min/Max '" + shapeName + "'", shapeCount, Color.blue, new Vector3(0.25f, 0.025f, 0.25f));
         }
+
+		// Display and measure largest wall
+		public void Query_Topology_MeasureLargestWall()
+		{
+			ClearGeometry();
+
+			// Only if we're enabled
+			if (!SpatialUnderstanding.Instance.AllowSpatialUnderstanding)
+			{
+				return;
+			}
+
+			// Query
+			IntPtr wallPtr = SpatialUnderstanding.Instance.UnderstandingDLL.PinObject(resultsTopology);
+			int wallCount = SpatialUnderstandingDllTopology.QueryTopology_FindLargestWall(
+				wallPtr);
+			if (wallCount == 0)
+			{
+				AppState.Instance.SpaceQueryDescription = "Measure Largest Wall (0)";
+				return;
+			}
+
+			// Add the line boxes
+			float timeDelay = (float)lineBoxList.Count * AnimatedBox.DelayPerItem;
+			float ourWidth = resultsTopology[0].width + 0.18f;
+			float ourLength = resultsTopology [0].length + 0.05f;
+			lineBoxList.Add(
+				new AnimatedBox(
+					timeDelay,
+					resultsTopology[0].position,
+					Quaternion.LookRotation(resultsTopology[0].normal, Vector3.up),
+					Color.magenta,
+					new Vector3(ourWidth, ourLength, 0.05f) * 0.5f)
+			);
+/*			for (int i = 1; i < 7; i++) {
+				lineBoxList.Add(
+					new AnimatedBox(
+						timeDelay,
+						resultsTopology[i].position,
+						Quaternion.LookRotation(resultsTopology[i].normal, Vector3.up),
+						Color.magenta,
+						new Vector3(resultsTopology[i].width, resultsTopology[i].length, 0.05f) * 0.5f)
+				);
+			}*/
+
+			//AppState.Instance.SpaceQueryDescription = "Find Largest Wall (1)";
+			AppState.Instance.SpaceQueryDescription = "Width(" + ourWidth.ToString("#.00") + ") x Height (" + ourLength.ToString("#.00") + ") Area: (" + (ourWidth*ourLength).ToString("#.00") + ")";
+
+
+			Query_Topology_PaintLargestWall ();
+		}
+
+
+		public void Query_Topology_PaintLargestWall(){
+
+			// Create Thin Cube GameObject
+			GameObject paintedWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+			paintedWall.transform.position = resultsTopology [0].position;
+			paintedWall.transform.rotation = Quaternion.LookRotation (resultsTopology [0].normal, Vector3.up);
+
+			paintedWall.transform.localScale = new Vector3 (resultsTopology [0].width, resultsTopology [0].length, 0.001f);
+
+			// Set to color (61,86,110);
+
+		}
 
         private void HandleResults_Topology(string visDesc, int locationCount, Vector3 boxFullDims, Color color)
         {
