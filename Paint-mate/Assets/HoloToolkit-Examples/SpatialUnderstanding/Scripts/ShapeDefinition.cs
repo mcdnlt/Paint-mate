@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
 {
-    public class ShapeDefinition : Singleton<ShapeDefinition>
+/*    public class ShapeDefinition : Singleton<ShapeDefinition>
     {
         // Properties
         public bool HasCreatedShapes { get; private set; }
@@ -214,5 +214,5 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
             // Mark it
             HasCreatedShapes = true;
         }
-    }
+   }*/
 }

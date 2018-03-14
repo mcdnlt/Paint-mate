@@ -78,7 +78,7 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
                 SpatialUnderstanding.Instance.AllowSpatialUnderstanding)
             {
                 // Make sure we've created our shapes
-                ShapeDefinition.Instance.CreateShapes();
+                // ShapeDefinition.Instance.CreateShapes();
 
                 // Make sure our solver is initialized
                 LevelSolver.Instance.InitializeSolver();
@@ -225,7 +225,7 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
             // Shape queries
             ButtonPanels[(int)Panels.Shapes].Button.GetComponentInChildren<Text>().text = "Shape Queries";
             ButtonPanels[(int)Panels.Shapes].Button.onClick.AddListener(() => { SetActiveTab(Panels.Shapes); });
-            ReadOnlyCollection<string> customShapes = ShapeDefinition.Instance.CustomShapeDefinitions;
+            /*ReadOnlyCollection<string> customShapes = ShapeDefinition.Instance.CustomShapeDefinitions;
             for (int i = 0; i < customShapes.Count; ++i)
             {
                 string shapeName = customShapes[i];
@@ -234,7 +234,7 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
                     SpaceVisualizer.Instance.Query_Shape_FindShapeHalfDims(shapeName);
                     timeLastQuery = DateTime.MinValue;
                 });
-            }
+            }*/
 
             // Level solver
             ButtonPanels[(int)Panels.LevelSolver].Button.GetComponentInChildren<Text>().text = "Object Placement";
