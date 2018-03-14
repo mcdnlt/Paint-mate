@@ -147,8 +147,9 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
                     Color.magenta,
                     new Vector3(resultsTopology[0].width, resultsTopology[0].length, 0.05f) * 0.5f)
             );
-            AppState.Instance.SpaceQueryDescription = "Find Largest Wall (1)";
-        }
+            //AppState.Instance.SpaceQueryDescription = "Find Largest Wall (1)";
+			AppState.Instance.SpaceQueryDescription = "Width(" + resultsTopology[0].width + ") x Height (" + resultsTopology[0].length + " Area: "; 
+		}
 
         public void Query_Topology_FindPositionsOnFloor()
         {
