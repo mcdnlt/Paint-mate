@@ -303,22 +303,9 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
 					Color.magenta,
 					new Vector3(ourWidth, ourLength, 0.05f) * 0.5f)
 			);
-/*			for (int i = 1; i < 7; i++) {
-				lineBoxList.Add(
-					new AnimatedBox(
-						timeDelay,
-						resultsTopology[i].position,
-						Quaternion.LookRotation(resultsTopology[i].normal, Vector3.up),
-						Color.magenta,
-						new Vector3(resultsTopology[i].width, resultsTopology[i].length, 0.05f) * 0.5f)
-				);
-			}*/
 
-			//AppState.Instance.SpaceQueryDescription = "Find Largest Wall (1)";
-			AppState.Instance.SpaceQueryDescription = "Width(" + ourWidth.ToString("#.00") + ") x Height (" + ourLength.ToString("#.00") + ") Area: (" + (ourWidth*ourLength).ToString("#.00") + ")";
+			AppState.Instance.SpaceQueryDescription = "Width(" + ourWidth.ToString("#.00") + "m) x Height (" + ourLength.ToString("#.00") + "m) Area: (" + (ourWidth*ourLength).ToString("#.00m") + ")";
 
-
-			Query_Topology_PaintLargestWall ();
 		}
 
 

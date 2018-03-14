@@ -119,11 +119,11 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
                             {
                                 return "When ready, air tap to finalize your playspace";
                             }
-                            return "Walk around and scan in your playspace";
+                            return "Walk around to scan wall for measuring";
                         case SpatialUnderstanding.ScanStates.Finishing:
-                            return "Finalizing scan (please wait)";
+                            return "Review wall measurements";
                         case SpatialUnderstanding.ScanStates.Done:
-                            return "Scan complete - Use the menu to run queries";
+                            return "Select Color to Apply";
                         default:
                             return "ScanState = " + SpatialUnderstanding.Instance.ScanState.ToString();
                     }
@@ -289,13 +289,52 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
             }
         }
 
+		bool reviewIsDone = false;
+		bool colorPickerIsDone = false;
+		public GameObject bluerenderer;
+
         public void OnInputClicked(InputClickedEventData eventData)
         {
             if ((SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Scanning) &&
                 !SpatialUnderstanding.Instance.ScanStatsReportStillWorking)
             {
                 SpatialUnderstanding.Instance.RequestFinishScan();
+
+				SpatialUnderstanding.Instance.GetComponentInChildren<Renderer> ().material.SetColor ("_WireColor", Color.red);
+				//SpatialUnderstanding.Instance.GetComponentInChildren<Renderer> ().material.shader.SetColor ("_WireColor", Color.red);
+
+
             }
+
+
+			// Review phase, look at largrest wall, "reset if incorrect"
+			// Click to Move onto 
+			if (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done
+			   && !reviewIsDone) {
+
+				// If clicked move Color Picker Mode
+
+				// TODO: Toggle Mesh Off
+				ToggleProcessedMesh();
+
+				// TODO: Clear Lines
+				SpaceVisualizer.Instance.ClearGeometry();
+
+				// TODO: Draw Wall
+				SpaceVisualizer.Instance.Query_Topology_PaintLargestWall ();
+
+
+				reviewIsDone = true;
+
+			}
+
+			// Palette Mode
+			if (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done
+			   && reviewIsDone && !colorPickerIsDone) {
+
+
+			}
+
 
 
 			// Paint-mate : If scan is done, press to place anchors for subtraction
