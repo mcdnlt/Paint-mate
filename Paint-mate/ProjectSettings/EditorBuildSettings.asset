@@ -14,3 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 7ecf1c34f0ac4b4449076e91efc011be
+  - enabled: 1
+    path: Assets/Scenes/AskToGenerateReport.unity
+    guid: dd1e9f6b25675a741bb6b38bb24a627e
+  - enabled: 1
+    path: Assets/Scenes/Report.unity
+    guid: 1520907ead9cc974d9648e4d03ec6888
