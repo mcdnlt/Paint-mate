@@ -30,6 +30,12 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
         public SpatialMappingObserver MappingObserver;
         public SpatialUnderstandingCursor AppCursor;
 
+		// PaintMate
+		public GameObject lookAroundPrefab;
+		public GameObject PaintMateAreaDisplayPrefab;
+		public GameObject newMenuBit;
+		public GameObject newMenuBit2;
+
         // Properties
         public string SpaceQueryDescription
         {
@@ -117,13 +123,13 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
                             // The stats tell us if we could potentially finish
                             if (DoesScanMeetMinBarForCompletion)
                             {
-                                return "When ready, air tap to finalize your playspace";
+                                return "When ready, air tap to complete measuring";
                             }
                             return "Walk around to scan wall for measuring";
                         case SpatialUnderstanding.ScanStates.Finishing:
                             return "Review wall measurements";
                         case SpatialUnderstanding.ScanStates.Done:
-                            return "Select Color to Apply";
+                            return "";
                         default:
                             return "ScanState = " + SpatialUnderstanding.Instance.ScanState.ToString();
                     }
@@ -217,6 +223,14 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
             keywordRecognizer = new KeywordRecognizer(keywordsToActions.Keys.ToArray());
             keywordRecognizer.OnPhraseRecognized += args => keywordsToActions[args.text].Invoke();
             keywordRecognizer.Start();
+
+			GameObject newMenuBit = Instantiate (lookAroundPrefab, DebugDisplay.transform.position, DebugDisplay.transform.rotation);
+			newMenuBit.transform.SetParent (DebugDisplay.transform);
+			newMenuBit.transform.position = DebugDisplay.transform.position;
+			//DebugDisplay.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+			DebugDisplay.fontSize = 0;
+			DebugSubDisplay.fontSize = 0;
+
         }
 #endif
 
@@ -291,21 +305,35 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
 
 		bool reviewIsDone = false;
 		bool colorPickerIsDone = false;
-		public GameObject bluerenderer;
+
 
         public void OnInputClicked(InputClickedEventData eventData)
         {
             if ((SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Scanning) &&
                 !SpatialUnderstanding.Instance.ScanStatsReportStillWorking)
             {
-                SpatialUnderstanding.Instance.RequestFinishScan();
 
-				SpatialUnderstanding.Instance.GetComponentInChildren<Renderer> ().material.SetColor ("_WireColor", Color.red);
-				//SpatialUnderstanding.Instance.GetComponentInChildren<Renderer> ().material.shader.SetColor ("_WireColor", Color.red);
+				//Destroy (newMenuBit.transform);
+
+				/*GameObject newMenuBit2 = Instantiate (PaintMateAreaDisplayPrefab, DebugDisplay.transform.position, DebugDisplay.transform.rotation);
+				newMenuBit2.transform.SetParent (DebugDisplay.transform);
+				newMenuBit2.transform.position = DebugDisplay.transform.position;
+
+				newMenuBit2.GetComponentInChildren<TextMesh> ().text = "over 9000";
 
 
+				SpatialUnderstanding.Instance.RequestFinishScan();*/
+
+				//SpatialUnderstanding.Instance.GetComponentInChildren<Renderer> ().material.SetColor ("_WireColor", Color.red);
             }
 
+			if (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done ) {
+
+				if (newMenuBit.activeSelf) {
+					Destroy (newMenuBit);
+
+				}
+			}
 
 			// Review phase, look at largrest wall, "reset if incorrect"
 			// Click to Move onto 
@@ -331,6 +359,8 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
 			// Palette Mode
 			if (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done
 			   && reviewIsDone && !colorPickerIsDone) {
+
+
 
 
 			}
