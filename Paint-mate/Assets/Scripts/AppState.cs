@@ -320,9 +320,9 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
 				newMenuBit2.transform.position = DebugDisplay.transform.position;
 
 				newMenuBit2.GetComponentInChildren<TextMesh> ().text = "over 9000";
+				*/
 
-
-				SpatialUnderstanding.Instance.RequestFinishScan();*/
+				SpatialUnderstanding.Instance.RequestFinishScan();
 
 				//SpatialUnderstanding.Instance.GetComponentInChildren<Renderer> ().material.SetColor ("_WireColor", Color.red);
             }
@@ -346,16 +346,18 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
 
 				reviewIsDone = true;
 
+				StartCoroutine(LoadLevelAfterDelay(3)); 
 			}
 
 			// Palette Mode
-			if (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done
-			   && reviewIsDone && !colorPickerIsDone) {
-
-
-
-
-			}
+//			if (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done
+//			   && reviewIsDone && !colorPickerIsDone) {
+//
+//
+//
+//
+//
+//			}
 
 
 
