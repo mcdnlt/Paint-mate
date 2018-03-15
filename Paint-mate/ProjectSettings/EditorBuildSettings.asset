@@ -9,5 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Start.unity
     guid: 33ce63c3bb0de574997eb6837cd54d44
   - enabled: 1
+    path: Assets/Scenes/GetReadyToLookAround.unity
+    guid: 5541d66ee69b694498b7e58efeb58705
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 7ecf1c34f0ac4b4449076e91efc011be
