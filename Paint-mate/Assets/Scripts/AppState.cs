@@ -326,15 +326,7 @@ namespace HoloToolkit.Examples.SpatialUnderstandingFeatureOverview
 
 				//SpatialUnderstanding.Instance.GetComponentInChildren<Renderer> ().material.SetColor ("_WireColor", Color.red);
             }
-
-			if (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done ) {
-
-				if (newMenuBit.activeSelf) {
-					Destroy (newMenuBit);
-
-				}
-			}
-
+				
 			// Review phase, look at largrest wall, "reset if incorrect"
 			// Click to Move onto 
 			if (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Done
